@@ -14,23 +14,24 @@ import { createFirestoreInstance, firestoreReducer } from 'redux-firestore';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import logger from 'redux-logger';
 
-// import loginReducer
 import loginReducers from './redux/loginReducers';
 
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCpUlt4FCDOlWimbhjnGCP1gN4CxKpz8m4",
-  authDomain: "pea-rg4-dashboard.firebaseapp.com",
-  databaseURL: "https://pea-rg4-dashboard.firebaseio.com",
-  projectId: "pea-rg4-dashboard",
-  storageBucket: "pea-rg4-dashboard.appspot.com",
-  messagingSenderId: "592096793574",
-  appId: "1:592096793574:web:df28de01bbe8493b307c27",
-  measurementId: "G-P07BYPYZGP"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCpUlt4FCDOlWimbhjnGCP1gN4CxKpz8m4",
+//   authDomain: "pea-rg4-dashboard.firebaseapp.com",
+//   databaseURL: "https://pea-rg4-dashboard.firebaseio.com",
+//   projectId: "pea-rg4-dashboard",
+//   storageBucket: "pea-rg4-dashboard.appspot.com",
+//   messagingSenderId: "592096793574",
+//   appId: "1:592096793574:web:df28de01bbe8493b307c27",
+//   measurementId: "G-P07BYPYZGP"
+// };
+
+import { firebaseConfig } from './constants'
 
 // react-redux-firebase config
 const rrfConfig = {
