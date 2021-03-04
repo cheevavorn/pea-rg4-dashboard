@@ -117,6 +117,18 @@ function Manage ({ requestors, userData, firestore }) {
             width: '20%',
             sorter: (a, b) => a.gmailAuthAt.seconds - b.gmailAuthAt.seconds,
             sortDirections: ['ascend', 'descend'],
+            filters: [
+                { text: 'ยืนยันผ่าน Gmail', value: 'authenticated'},
+                { text: 'ยังไม่ได้ยืนยันผ่าน Gmail', value: null}
+            ],
+            onFilter: (value, record) => {
+                if(value === "authenticated"){
+                    return record.gmailName.trim().length > 0
+                } else {
+                    return record.gmailName.trim().length === 0 
+                }
+            },
+            filterMultiple: false,
             render: (gmailAccount, record) => {
                 if(!gmailAccount){
                     return <Tag color="error">อยู่ระหว่างยืนยันตัวตนผ่าน Google</Tag>;
@@ -190,6 +202,18 @@ function Manage ({ requestors, userData, firestore }) {
             title: "สิทธิ์การเข้าถึง",
             dataIndex: 'grantAffiliation',
             width: '15%',
+            // filterMultiple: false,
+            // filters: [
+            //     { text: 'กฟต.1', value: 'J'},
+            //     { text: 'กฟต.2', value: 'K'},
+            //     { text: 'กฟต.3', value: 'L'},
+            //     { text: 'ภาค 4', value: 'Z'},
+            // ],
+            // onFilter: (value, record) => {
+            //     return record.grantAffiliation.filter(affiliation => {
+            //         return affiliation.district === value && affiliation.isGranted
+            //     }).length === 0 ? false : true;
+            // },
             render: (affiliationList, record) => {
                 return (
                     <Space direction={`vertical`} size={2}>
@@ -296,7 +320,7 @@ function Manage ({ requestors, userData, firestore }) {
                 <Header>
                     <Space>
                         <Typography.Title style={{color:'white'}} level={3}>
-                            ระบบยืนยันการเข้าถึงรายงานสถานะผลการดำเนินงานของสายงานการไฟฟ้า ภาค4
+                            ระบบยืนยันการเข้าถึงรายงานสถานะผลการดำเนินงานของสายงานการไฟฟ้า ภาค 4
                         </Typography.Title>
                     </Space>
                 </Header>
@@ -595,6 +619,13 @@ function Manage ({ requestors, userData, firestore }) {
                                         </Divider>
                                     </Col>
                                 </Row>
+                                {/* <Row justify={'end'}>
+                                    <Col>
+                                        <Button type="primary" onClick={() => alert()} shape="round" icon={<DownloadOutlined />}>
+                                            คัดลอกอีเมล์
+                                        </Button>
+                                    </Col>
+                                </Row> */}
                                 <Row justify={`center`}>
                                     <Col span={23}>
                                         <Table 

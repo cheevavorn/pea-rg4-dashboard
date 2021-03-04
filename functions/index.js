@@ -95,9 +95,10 @@ app.post('/login', async ({ body: { Username, Password } }, res) => {
         const requestorDoc = await requestorsRef.get();
         if(!requestorDoc.exists && permission === 'REQUESTOR'){
           let grantedByDistrict = [
-            {district: 'J', isGranted: true},
-            {district: 'K', isGranted: true},
-            {district: 'L', isGranted: true}
+            { district: 'J', isGranted: false },
+            { district: 'K', isGranted: false },
+            { district: 'L', isGranted: false },
+            { district: 'Z', isGranted: false }
           ];
           await requestorsRef.set({ 
             ...employeeObj, 
@@ -109,9 +110,22 @@ app.post('/login', async ({ body: { Username, Password } }, res) => {
             gmailAuthAt: '',
             requestedAt: new Date(),
             isApprovedPermission: false,
-            grantAffiliation: employeeObj.CostCenterCode.charAt(0) === 'Z' ? 
-              [...grantedByDistrict, {district: 'Z', isGranted: true}] : 
-              [...grantedByDistrict, {district: 'Z', isGranted: false}]
+            grantAffiliation: 
+              employeeObj.CostCenterCode.charAt(0) === 'J' ? 
+              [...grantedByDistrict, {district: 'J', isGranted: true}]:
+                employeeObj.CostCenterCode.charAt(0) === 'K' ? 
+                [...grantedByDistrict, {district: 'K', isGranted: true}]:
+                  employeeObj.CostCenterCode.charAt(0) === 'L' ? 
+                  [...grantedByDistrict, {district: 'L', isGranted: true}]:
+                  [
+                    { district: 'J', isGranted: true },
+                    { district: 'K', isGranted: true },
+                    { district: 'L', isGranted: true },
+                    { district: 'Z', isGranted: true }
+                  ]
+            // grantAffiliation: employeeObj.CostCenterCode.charAt(0) === 'Z' ? 
+            //   [...grantedByDistrict, {district: 'Z', isGranted: true}] : 
+            //   [...grantedByDistrict, {district: 'Z', isGranted: false}]
           });
         }
 
